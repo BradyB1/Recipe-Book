@@ -3,9 +3,13 @@ const router = express.Router();
 const userController = require("./controllers/userController");
 const recipeController = require("./controllers/recipeController");
 
-router.get("/", userController.home);
+//  Not logged in Home Page
+router.get("/", userController.login);
 
-// Home Page
+//Logged in Home Page
+router.get("/home", userController.home);
+
+// All recipes under user account
 router.get("/recipes", recipeController.viewRecipeScreen);
 
 module.exports = router;

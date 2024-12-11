@@ -2,6 +2,8 @@ exports.home = function (req, res) {
   res.render("home");
 };
 
-// exports.recipes = function (req, res) {
-//   res.render("recipes");
-// };
+exports.login = function (req, res) {
+  res.render("guest-home");
+};
+
+exports.logout = function (req, res) {};
