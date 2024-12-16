@@ -1,5 +1,21 @@
 <%- include("includes/header") %>
-<h3>Create a Recipe</h3>
+
+<div class="container py-5"> 
+    <h1 id="create-recipe-title">Create a Recipe</h1>
+    <div class="create-recipe-container my-3">   
+        
+        <form action="submit">
+            <label for="dish-name">Dish name:</label>
+            <input type="text">
+
+            <label for="ingredients">Ingredients</label>
+            <input type="text">
+            <button id="add-ingredient-button">Add Ingredient</button>
+
+        </form>
+</div>
+
+</div>
 
 
 <%- include("includes/footer") %>
