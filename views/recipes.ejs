@@ -1,11 +1,12 @@
 
   <%- include("includes/header") %>
   <div class="row align-items-center justify-content-center">
+
     <div class="col-lg-7 py-3 py-md-5">
       <h1 class="display-3 align-items-center">My Recipes</h1>      
       <p class="lead text-muted">View your all of your recipes. Click a recipe to view Ingredients and Instructions</p>
 
-      <div class="recipe-container">
+      <!-- <div class="recipe-container">
 
         <div class="recipe">
           <div class="recipe-img">
@@ -15,48 +16,63 @@
           <p id="recipe-description">A Delicious Pesto Sandwich on homemade Sourdough bread.</p>
 
         </div>
+        
 
-        <div class="recipe">
-          <div class="recipe-img">
-            <img src="/assets/shrimp-pasta.jpg" alt="shrimp-pasta">
+      </div> -->
+
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 px-3">
+        <div class="col">
+          <div class="card shadow-sm">
+            <img src="/assets/pesto-sandwich.jpg" alt="">
+            <div class="card-body">
+              <h3>Pesto Sandwich</h3>
+              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                  <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                </div>
+                <small class="text-body-secondary">9 mins</small>
+              </div>
+            </div>
           </div>
-          <h3>Shrimp Pasta</h3>
-          <p id="recipe-description">A fantasic Italian & Seafood mixture featuring a homemade pasta. Delivering a lightweight meal.</p>
+        </div>
+        
+        <div class="col">
+          <div class="card shadow-sm">
+            <img src="/assets/pesto-sandwich.jpg" alt="">
+            <div class="card-body">
+              <h3>Pesto Sandwich</h3>
+              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                  <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                </div>
+                <small class="text-body-secondary">9 mins</small>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <div class="recipe">
-          <div class="recipe-img">
-            <img src="/assets/bbq-chicken-legs.jpg" alt="bbq-chicken-legs">
+
+        <div class="col">
+          <div class="card shadow-sm">
+            <img src="/assets/pesto-sandwich.jpg" alt="">
+            <div class="card-body">
+              <h3>Pesto Sandwich</h3>
+              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                  <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                </div>
+                <small class="text-body-secondary">9 mins</small>
+              </div>
+            </div>
           </div>
-          <h3>BBQ Chicken Legs</h3>
-          <p id="recipe-description">A savory backyard BBQ staple. The BBQ chicken legs once marinated, once brushed</p>
         </div>
 
-        <!-- row 2 -->
-        <div class="recipe">
-          <div class="recipe-img">
-            <img src="/assets/chicken-parm-pasta.jpg" alt="chicken-parm-pasta">
-          </div>
-          <h3>Chicken Parm Pasta</h3>
-          <p id="recipe-description">A delicious & easy crockpot Chicken Parmasean pasta.</p>
-
-        </div>
-
-        <div class="recipe">
-          <div class="recipe-img">
-            <img src="/assets/stuffed-chicken-breast.jpg" alt="stuffed-chicken-breast">
-          </div>
-          <h3>Stuffed Chicken Breast</h3>
-          <p id="recipe-description">A savory delight of tender chicken breast filled with a rich, flavorful stuffing.</p>
-        </div>
-
-        <div class="recipe">
-          <div class="recipe-img">
-            <img src="/assets/sour-dough-pizza.webp" alt="bbq-chicken-legs">
-          </div>
-          <h3>Sourdough Pizza</h3>
-          <p id="recipe-description"> A delicious homemade Staple. Mix your cooking with a little bit of baking for a delicious cheesy pizza.</p>
-        </div>
 
       </div>
 
