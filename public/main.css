@@ -1,0 +1,24 @@
+.recipe-container{
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    grid-template-rows: repeat(2,1fr);
+    grid-template-columns: minmax(1fr, 172px);
+}
+
+.recipe{
+    margin: 10px;
+}
+#recipe-description{
+    width: 100%
+}
+.recipe-img img{
+    /* width: 100%;
+    height: 50%; */
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+}
+
+.recipe-container p{
+    width: 80%;
+}

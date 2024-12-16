@@ -12,4 +12,6 @@ router.get("/home", userController.home);
 // All recipes under user account
 router.get("/recipes", recipeController.viewRecipeScreen);
 
+// 
+router.get("/create-recipe", recipeController.viewCreateRecipeScreen)
 module.exports = router;

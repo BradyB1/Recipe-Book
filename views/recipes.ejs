@@ -1,12 +1,65 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-<body>
+
   <%- include("includes/header") %>
-  <h1>Welcome to the recipe page</h1>
+  <div class="row align-items-center justify-content-center">
+    <div class="col-lg-7 py-3 py-md-5">
+      <h1 class="display-3 align-items-center">My Recipes</h1>      
+      <p class="lead text-muted">View your all of your recipes. Click a recipe to view Ingredients and Instructions</p>
+
+      <div class="recipe-container">
+
+        <div class="recipe">
+          <div class="recipe-img">
+            <img src="/assets/pesto-sandwich.jpg" alt="pesto-sandwich">
+          </div>
+          <h3>Pesto Sandwich</h3>
+          <p id="recipe-description">A Delicious Pesto Sandwich on homemade Sourdough bread.</p>
+
+        </div>
+
+        <div class="recipe">
+          <div class="recipe-img">
+            <img src="/assets/shrimp-pasta.jpg" alt="shrimp-pasta">
+          </div>
+          <h3>Shrimp Pasta</h3>
+          <p id="recipe-description">A fantasic Italian & Seafood mixture featuring a homemade pasta. Delivering a lightweight meal.</p>
+        </div>
+
+        <div class="recipe">
+          <div class="recipe-img">
+            <img src="/assets/bbq-chicken-legs.jpg" alt="bbq-chicken-legs">
+          </div>
+          <h3>BBQ Chicken Legs</h3>
+          <p id="recipe-description">A savory backyard BBQ staple. The BBQ chicken legs once marinated, once brushed</p>
+        </div>
+
+        <!-- row 2 -->
+        <div class="recipe">
+          <div class="recipe-img">
+            <img src="/assets/chicken-parm-pasta.jpg" alt="chicken-parm-pasta">
+          </div>
+          <h3>Chicken Parm Pasta</h3>
+          <p id="recipe-description">A delicious & easy crockpot Chicken Parmasean pasta.</p>
+
+        </div>
+
+        <div class="recipe">
+          <div class="recipe-img">
+            <img src="/assets/stuffed-chicken-breast.jpg" alt="stuffed-chicken-breast">
+          </div>
+          <h3>Stuffed Chicken Breast</h3>
+          <p id="recipe-description">A savory delight of tender chicken breast filled with a rich, flavorful stuffing.</p>
+        </div>
+
+        <div class="recipe">
+          <div class="recipe-img">
+            <img src="/assets/sour-dough-pizza.webp" alt="bbq-chicken-legs">
+          </div>
+          <h3>Sourdough Pizza</h3>
+          <p id="recipe-description"> A delicious homemade Staple. Mix your cooking with a little bit of baking for a delicious cheesy pizza.</p>
+        </div>
+
+      </div>
+
+    </div>
 
   <%- include("includes/footer") %>
