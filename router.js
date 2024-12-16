@@ -12,11 +12,12 @@ router.get("/home", userController.home);
 // All recipes under user account
 router.get("/recipes", recipeController.viewRecipeScreen);
 
-// 
-router.get("/create-recipe", recipeController.viewCreateRecipeScreen)
+// active create-recipe screen
+router.get("/create-recipe", recipeController.viewCreateRecipeScreen);
 
+// sends a post request to login
+router.post("/login", userController.login);
+// sends a post request to register as a user in the Mongodb
+router.post("/register", userController.register);
 
-router.post("/login", userController.login)
-router.post("/register", userController.register)
-router.post("/login", userController.login)
 module.exports = router;
