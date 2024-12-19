@@ -45,8 +45,8 @@ Recipe.prototype.cleanUp = function() {
     this.data = {
         title: this.data.title.trim(),
         description: this.data.description.trim(),
-        ingredients: this.data.ingredients.trim(),
-        steps: this.data.steps.trim(),
+        ingredients: this.data.ingredients,
+        steps: this.data.steps,
         cook_time: this.data.cook_time.trim(),
         createdDate: new Date(),
         author: new ObjectId(this.userid)

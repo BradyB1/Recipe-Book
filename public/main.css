@@ -176,14 +176,19 @@ body, .tooltip
   z-index: 2;
 }
 
+/* create-recipte form height on sm screen */
 textarea.tall-textarea {
-  height: 160px;
+  height: 100px;
 }
 
+
+/* create-recipte form height on larger screens */
 @media (min-width: 768px) {
   textarea.tall-textarea {
-    height: 320px;
+    height: 140px;
+    width:100%;
   }
+
 }
 
 .delete-post-button {
