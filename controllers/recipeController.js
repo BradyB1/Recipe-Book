@@ -10,7 +10,6 @@ exports.viewCreateRecipeScreen = function(req, res){
 
 exports.create = function(req, res){
   let recipe = new Recipe(req.body, req.session.user._id)
-  console.log(req.body)
   recipe.create().then(function(){
     res.send("New recipe Created")
   }).catch(function(errors){
@@ -24,7 +23,7 @@ exports.viewSingle = async function(req, res){
     let recipe = await Recipe.findSingleById(req.params.id)
     res.render('single-recipe-screen', {recipe: recipe})
   } catch{
-    res.send("404 template will go here")
+    res.render("404")
   }
 
 }

@@ -16,6 +16,10 @@ router.post("/register", userController.register);
 // sends a post request to logout a user -- destroy session
 router.post("/logout", userController.logout);
 
+// PROFILE RELATED ROUTES
+router.get("/profile/:username", userController.ifUserExists, userController.profileRecipesScreen)
+
+
 
 
 // RECIPE RELATED ROUTES

@@ -99,19 +99,62 @@ Recipe.prototype.create = function() {
 }
 
 
+Recipe.reusablePoseQuery = function (uniqueOperations) {
+    return new Promise(async function(resolve, reject){
+        let aggOperations = uniqueOperations.concat([
+            {$lookup: {from: "users", localField: "author", foreignField: "_id", as: "authorDocument"}},
+            {$project: {
+                title: 1,
+                body: 1,
+                createdDate: 1,
+                author: {$arrayElemAt: ['$authorDocument', 0]}
+            }}
+        ])
+
+        let recipes = await recipesCollection.aggregate(aggOperations).toArray()
+
+        //clean up author property in each recipe object
+        recipes = recipes.map(function(recipe){
+            recipe.author = {
+                username: recipe.author.username,
+                //can add avatar later
+            }
+
+            return recipe
+        })
+
+        resolve(recipes)
+
+    })
+}
+
+
 Recipe.findSingleById = function (id) {
     return new Promise(async function(resolve, reject){
         if (typeof(id) != "string" || !ObjectId.isValid(id)) {
             reject()
             return
         }
-        let recipe = await recipesCollection.findOne({_id: new ObjectId(id)})
-        if (recipe) {
-            resolve(recipe)
+        
+        let recipes = await Recipe.reusablePoseQuery([
+            {$match: {_id: new ObjectId(id)}}
+        ])
+
+        if (recipes.length) {
+            console.log(recipes[0])
+            resolve(recipes[0])
         }else{
             reject()
         }
 
     })
 }
+
+Recipe.findByAuthorId = function(authorId){
+    return Recipe.reusablePoseQuery([
+        {$match: {author: authorId}},
+        {$sort: {createdDate: -1}}
+    ])
+}
+
 module.exports = Recipe
