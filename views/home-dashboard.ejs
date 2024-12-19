@@ -1,8 +1,8 @@
-  <%- include("includes/header-logged-in") %> 
+  <%- include("includes/header") %> 
 
     <div class="container py-md-5 container--narrow">
       <div class="text-center">
-        <h2>Hello <strong><%= username %></strong>, you have no recipes!</h2>
+        <h2>Hello <strong><%= user.username %></strong>, you have no recipes!</h2>
         <p class="lead text-muted">Your feed displays the latest Recipes from you or the people you follow. If you don&rsquo;t have any friends to follow that&rsquo;s okay; you can use the &ldquo;Search&rdquo; feature in the top menu bar to find recipes created by other people and then follow them for more recipes!</p>
       </div>  
     </div>

@@ -2,6 +2,9 @@
 <div class="container py-md-5">
 
     <!-- error message on failed login: refer to complex app -->
+     <% errors.forEach(function(message){ %>
+      <div class="alert alert-danger text-center"> <%= message %></div>
+     <% }) %>
     <!-- <div class="alert alert-danger text-center">Holder </div> -->
 
   <div class="row align-items-center">
@@ -78,7 +81,10 @@
       <form action="/register" method="POST" id="registration-form">
 
           <!-- Another error message: refer to complex app -->
-          <!-- <div class="alert alert-danger small"> test </div> -->
+           <% regErrors.forEach(function(message){ %>
+            <div class="alert alert-danger small"> <%= message %> </div>
+           <% }) %>
+          
 
           <div class="form-group">
             <label for="username-register" class="text-muted mb-1"><small>Username</small></label>
