@@ -22,6 +22,7 @@ exports.viewSingle = async function(req, res){
   try{
     let recipe = await Recipe.findSingleById(req.params.id)
     res.render('single-recipe-screen', {recipe: recipe})
+    console.log(recipe)
   } catch{
     res.render("404")
   }

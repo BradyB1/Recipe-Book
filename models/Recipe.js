@@ -105,7 +105,9 @@ Recipe.reusablePoseQuery = function (uniqueOperations) {
             {$lookup: {from: "users", localField: "author", foreignField: "_id", as: "authorDocument"}},
             {$project: {
                 title: 1,
-                body: 1,
+                description: 1,
+                ingredients: 1,
+                steps: 1,
                 createdDate: 1,
                 author: {$arrayElemAt: ['$authorDocument', 0]}
             }}
