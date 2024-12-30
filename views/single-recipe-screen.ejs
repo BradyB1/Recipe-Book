@@ -1,6 +1,7 @@
 <%- include("includes/header") %>
   
   <div class="container py-md-5 container--narrow">
+    <%- include("includes/flash") %>
     <div class="d-flex justify-content-between">
       <h2><%= recipe.title %></h2>
       <span class="pt-2">
@@ -13,12 +14,26 @@
       
     <p class="text-muted small mb-1">
       Posted by <a href="#"><%= recipe.author.username %></a> on <%= recipe.createdDate.getMonth()+1 %>/<%= recipe.createdDate.getDate() %>/<%= recipe.createdDate.getFullYear() %></p>
-
       <p class="text-muted small mt-0 mb-4">Cook time: <%= recipe.cook_time %></p>
-    <div class="body-content">
+
+      <div class="svg-container d-flex justify-content-end w-100">
+        
+        <% if (recipe.isVisitorOwner) { %>
+          <a href="/recipe/<%= recipe._id %>/edit"><img src="/assets/edit.svg" alt="edit-post" class= "mx-2" ></a>
+          <form action="/recipe/<%= recipe._id %>/delete" method="POST">
+          <!-- <a href=""><img src="/assets/trash-can.svg" alt="delete-post" ></a> -->
+          <button class="delete-post-button text-danger" data-toggle="tooltip" data-placement="top" title="Delete"><a href=""><img src="/assets/trash-can.svg" alt="delete-post" ></a></button>
+
+        </form>
+        <% } %>
+
+        
+      </div>
+
+      <div class="body-content">
       <div class="indiv-recipe-description">
         <h4><strong>Description:</strong></h4>
-        <p><%= recipe.description %></p>
+        <p><%- filterUserHTML(recipe.description) %></p>
       </div>
       
       <div class="indiv-recipe-ingredients">

@@ -26,9 +26,13 @@ router.get("/profile/:username", userController.ifUserExists, userController.pro
 // All recipes under user account
 router.get("/recipes", recipeController.viewRecipeScreen);
 
+//POST RELATED ROUTES
 // active create-recipe screen
 router.get("/create-recipe", userController.mustBeLoggedIn, recipeController.viewCreateRecipeScreen);
 router.post("/create-recipe", userController.mustBeLoggedIn, recipeController.create)
 router.get("/recipe/:id", recipeController.viewSingle)
+router.get("/recipe/:id/edit", userController.mustBeLoggedIn, recipeController.viewEditScreen)
+router.post("/recipe/:id/edit", userController.mustBeLoggedIn, recipeController.edit)
+router.post("/recipe/:id/delete", userController.mustBeLoggedIn, recipeController.delete)
 
 module.exports = router;

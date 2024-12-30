@@ -86,6 +86,7 @@ User.prototype.login = function () {
       attemptedUser &&
       bcrypt.compareSync(this.data.password, attemptedUser.password)
     ) {
+      this.data = attemptedUser;
       resolve("Congrats");
     } else {
       reject("Invalid Username / Password");

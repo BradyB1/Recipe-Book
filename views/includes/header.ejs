@@ -29,19 +29,20 @@
           <!-- Send to create-recipe -->
           <a class="nav-link" href="/create-recipe" aria-disabled="true">Create Recipe</a>
         </li>
+      <% if(user) { %>  
         <li class="nav-item">
           <!-- link to Recipes list & Search -->
-          <a class="nav-link" href="/recipes">Profile</a>
+          <a class="nav-link" href="/profile/<%= user.username %>">Profile</a>
         </li>
-        
+      <% } %>
       </ul>
 
 
       <% if(user){ %>
         <div class="flex-row my-3 my-md-0">
-          <a href="#" class="text-white mr-2 header-search-icon" title="Search" data-toggle="tooltip" data-placement="bottom"><i class="fas fa-search"></i></a>
           <span class="text-white mr-2 header-chat-icon" title="Chat" data-toggle="tooltip" data-placement="bottom"><i class="fas fa-comment"></i></span>
           <!-- avatar here -->
+          <a href="#" class="text-white mr-2 header-search-icon" title="Search" data-toggle="tooltip" data-placement="bottom"><img src="\assets\search.svg" alt="search-icon"></i></a>
           <a class="btn btn-sm btn-success mx-2" href="/create-recipe">Create Recipe</a>
           <form action="/logout" method="POST" class="d-inline">
             <button class="btn btn-sm btn-secondary me-4">Sign Out</button>

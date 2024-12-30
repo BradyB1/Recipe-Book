@@ -19,6 +19,7 @@ exports.login = function (req, res) {
     .login()
     .then(function (result) {
       req.session.user = { favColor: "blue", username: user.data.username, _id: user.data._id };
+      console.log(`User.data.id: ${user.data._id}`)
       req.session.save(function(){
         res.redirect("/")
       })
@@ -62,7 +63,7 @@ exports.home = function (req, res) {
   if (req.session.user) {
     res.render("home-dashboard");
   } else {
-    res.render("guest-home", {errors: req.flash('errors'), regErrors: req.flash('regErrors')});
+    res.render("guest-home", {regErrors: req.flash('regErrors')});
   }
   // res.render("home");
 };

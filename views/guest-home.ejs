@@ -2,9 +2,7 @@
 <div class="container py-md-5">
 
     <!-- error message on failed login: refer to complex app -->
-     <% errors.forEach(function(message){ %>
-      <div class="alert alert-danger text-center"> <%= message %></div>
-     <% }) %>
+    <%- include("includes/flash") %>  
     <!-- <div class="alert alert-danger text-center">Holder </div> -->
 
   <div class="row align-items-center">

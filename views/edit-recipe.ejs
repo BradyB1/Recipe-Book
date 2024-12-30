@@ -1,31 +1,32 @@
 <%- include("includes/header") %>
 
 <div class="container py-md-5 container--narrow">
-  <%- include("includes/flash") %>
+    <%- include("includes/flash") %>
     <h2 class="mb-4 create-recipe-header">Create a New Recipe</h2>
-    <form class="create-form" action="/create-recipe" method="POST">
+    <a class="small font-weight-bold" href="/recipe/<%= recipe._id %>">&laquo; Back to Recipe permalink</a>
+    <form class="create-form mt-3" action="/recipe/<%=recipe._id%>/edit" method="POST">
       <!-- Recipe Title -->
       <div class="form-group">
         <label for="recipe-title" class="text-muted mb-1"><small>Recipe Title</small></label>
-        <input required name="title" id="recipe-title" class="form-control form-control-lg" type="text" placeholder="Enter recipe title" autocomplete="off">
+        <input required name="title" value="<%= recipe.title %>" id="recipe-title" class="form-control form-control-lg" type="text" placeholder="Enter recipe title" autocomplete="off">
       </div>
   
       <!-- Recipe Description -->
       <div class="form-group">
         <label for="recipe-description" class="text-muted mb-1"><small>Recipe Description</small></label>
-        <textarea required name="description" id="recipe-description" class="form-control tall-textarea" rows="4" placeholder="Provide a short description of the recipe"></textarea>
+        <textarea required name="description" id="recipe-description" class="form-control tall-textarea" rows="4" placeholder="Provide a short description of the recipe"><%= recipe.description %></textarea>
       </div>
   
       <!-- Ingredients -->
       <div class="form-group">
         <label for="recipe-ingredients" class="text-muted mb-1"><small>Ingredients</small></label>
-        <textarea required name="ingredients" id="recipe-ingredients" class="form-control tall-textarea" rows="5" placeholder="List all ingredients, one per line"></textarea>
+        <textarea required name="ingredients" id="recipe-ingredients" class="form-control tall-textarea" rows="5" placeholder="List all ingredients, one per line"><%= recipe.ingredients %></textarea>
       </div>
   
       <!-- Steps -->
       <div class="form-group">
         <label for="recipe-steps" class="text-muted mb-1"><small>Steps</small></label>
-        <textarea required name="steps" id="recipe-steps" class="form-control tall-textarea" rows="6" placeholder="Describe the steps to prepare the recipe"></textarea>
+        <textarea required name="steps" id="recipe-steps" class="form-control tall-textarea" rows="6" placeholder="Describe the steps to prepare the recipe"><%= recipe.steps %></textarea>
       </div>
   
       <!-- Prep Time -->
@@ -37,7 +38,7 @@
       <!-- Cook Time -->
       <div class="form-group">
         <label for="cook-time" class="text-muted mb-1"><small>Cooking Time (minutes)</small></label>
-        <input required name="cook_time" id="cook-time" class="form-control"  min="0" placeholder="e.g., 30">
+        <input required name="cook_time" value="<%= recipe.cook_time %>" id="cook-time" class="form-control"  min="0" placeholder="e.g., 30">
       </div>
   
       <!-- Image Upload
@@ -47,7 +48,7 @@
       </div> -->
   
       <!-- Submit Button -->
-      <button class="btn btn-primary btn-lg mt-3">Save New Recipe</button>
+      <button class="btn btn-primary btn-lg mt-3">Save Updates </button>
     </form>
   </div>
   
