@@ -130,7 +130,7 @@ Recipe.prototype.actuallyUpdate = function(){
     })
 }
 
-Recipe.reusablePoseQuery = function (uniqueOperations, visitorId) {
+Recipe.reusablePoseQuery = function (uniqueOperations, visitorId, finalOperations = []) {
     return new Promise(async function(resolve, reject){
         let aggOperations = uniqueOperations.concat([
             {$lookup: {from: "users", localField: "author", foreignField: "_id", as: "authorDocument"}},
@@ -144,14 +144,14 @@ Recipe.reusablePoseQuery = function (uniqueOperations, visitorId) {
                 authorId: "$author",
                 author: {$arrayElemAt: ['$authorDocument', 0]}
             }}
-        ])
+        ]).concat(finalOperations)
 
         let recipes = await recipesCollection.aggregate(aggOperations).toArray()
 
         //clean up author property in each recipe object
         recipes = recipes.map(function(recipe){
             recipe.isVisitorOwner = recipe.authorId.equals(visitorId)
-            console.log(`Recipe Author ID: ${recipe.authorId}`)
+            recipe.authorId = undefined
             recipe.author = {
                 username: recipe.author.username,
                 //can add avatar later
@@ -208,6 +208,19 @@ Recipe.delete = function(recipeIdToDelete, currentUserId) {
       reject()
     }
   })
+}
+
+Recipe.search = function(searchTerm){
+    return new Promise(async(resolve, reject) => {
+        if(typeof(searchTerm) == "string"){
+            let recipes = await Recipe.reusablePoseQuery([
+                {$match: {$text: {$search: searchTerm}}}
+            ], undefined, [{$sort: {score: {$meta: "textScore"}}}])
+            resolve(recipes)
+        }else{
+            reject()
+        }
+    })
 }
 
 module.exports = Recipe

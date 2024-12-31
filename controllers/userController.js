@@ -1,5 +1,18 @@
 const User = require("../models/Users");
 const Recipe = require("../models/Recipe");
+const Follow = require('../models/Follow')
+
+exports.sharedProfileData = async function(req, res, next){
+  let isFollowing = false
+  if(req.session.user){
+    isFollowing = await Follow.isVisitorFollowing(req.profileUser._id, req.visitorId)
+  }
+
+  req.isFollowing = isFollowing
+  next()
+}
+
+
 
 exports.mustBeLoggedIn = function(req, res, next){
   if(req.session.user){
@@ -83,10 +96,12 @@ exports.profileRecipesScreen = function(req, res){
   Recipe.findByAuthorId(req.profileUser._id).then(function(recipes){
     res.render("profile", {
       recipes: recipes,
-      profileUsername: req.profileUser.username
+      profileUsername: req.profileUser.username,
+      isFollowing: req.isFollowing
     })
   }).catch(function(){
     res.render("404")
   })
   
 }
+

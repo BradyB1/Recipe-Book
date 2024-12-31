@@ -110,3 +110,12 @@ exports.delete = function(req, res){
     console.log("the the catch of delete. No Bueno")
   })
 }
+
+
+exports.search = function(req, res){
+  Recipe.search(req.body.searchTerm).then( recipes =>{
+    res.json(recipes)
+  }).catch(() =>{
+    res.json([])
+  })
+}

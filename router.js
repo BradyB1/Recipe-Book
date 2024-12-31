@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const userController = require("./controllers/userController");
 const recipeController = require("./controllers/recipeController");
+const followController = require("./controllers/followController");
 
 // USER RELATED ROUTES //
 
@@ -17,7 +18,7 @@ router.post("/register", userController.register);
 router.post("/logout", userController.logout);
 
 // PROFILE RELATED ROUTES
-router.get("/profile/:username", userController.ifUserExists, userController.profileRecipesScreen)
+router.get("/profile/:username", userController.ifUserExists, userController.sharedProfileData, userController.profileRecipesScreen)
 
 
 
@@ -34,5 +35,11 @@ router.get("/recipe/:id", recipeController.viewSingle)
 router.get("/recipe/:id/edit", userController.mustBeLoggedIn, recipeController.viewEditScreen)
 router.post("/recipe/:id/edit", userController.mustBeLoggedIn, recipeController.edit)
 router.post("/recipe/:id/delete", userController.mustBeLoggedIn, recipeController.delete)
+router.post("/search", recipeController.search)
+
+
+// FOLLOW RELATED ROUTES
+router.post("/addFollow/:username", userController.mustBeLoggedIn, followController.addFollow)
+router.post("/removeFollow/:username", userController.mustBeLoggedIn, followController.addFollow)
 
 module.exports = router;

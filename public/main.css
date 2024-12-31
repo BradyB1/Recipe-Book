@@ -1,60 +1,4 @@
-.recipe-container{
-    display: grid;
-    grid-template-columns: repeat(3,1fr);
-    gap: 10px;
-    grid-template-rows: repeat(2,1fr);
 
-}
-
-/* Media query for medium screens */
-@media screen and (max-width: 768px) {
-    .recipe-container {
-        grid-template-columns: repeat(2, 1fr); 
-    }
-}
-
-/* Media query for small screens */
-@media screen and (max-width: 480px) {
-    .recipe-container {
-        grid-template-columns: repeat(1, 1fr); 
-    }
-}
-
-
-.recipe{
-    margin: 10px;
-    border: 1px solid black;
-}
-
-#recipe-description{
-    width: 100%
-}
-
-.recipe-img{
-    border-radius: inherit;
-}
-
-.recipe-img img{
-    width: 100%;
-    height: 150px;
-}
-
-.recipe-information{
-    padding: 10px;
-}
-
-
-.recipe-container p{
-    width: 80%;
-}
-
-.container{ 
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: start;
-    align-items: center;
-}
 
 /*  */
 
@@ -176,19 +120,14 @@ body, .tooltip
   z-index: 2;
 }
 
-/* create-recipte form height on sm screen */
 textarea.tall-textarea {
-  height: 100px;
+  height: 160px;
 }
 
-
-/* create-recipte form height on larger screens */
 @media (min-width: 768px) {
   textarea.tall-textarea {
-    height: 140px;
-    width:100%;
+    height: 320px;
   }
-
 }
 
 .delete-post-button {
@@ -204,7 +143,7 @@ textarea.tall-textarea {
   display: flex;
   flex-direction: column;
   position: fixed;
-  z-index: 500;
+  z-index: 5000;
   top: 0;
   left: 0;
   bottom: 0;
@@ -265,6 +204,7 @@ textarea.tall-textarea {
 
 .search-overlay-bottom {
   overflow: auto;
+  opacity: 1;
 }
 
 .close-live-search {
@@ -307,7 +247,7 @@ textarea.tall-textarea {
 }
 
 .circle-loader {
-  opacity: 0;
+  opacity: 1;
   transition: opacity .45s ease-out, visibility .45s ease-out;
   visibility: hidden;
   position: absolute;
