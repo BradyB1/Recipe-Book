@@ -1,6 +1,7 @@
 const recipesCollection = require("../db").db().collection("recipes")
 const ObjectId = require('mongodb').ObjectId
 const sanitizeHTML = require('sanitize-html')
+const followsCollection = require("../db").db().collection('follows')
 /*
 Recipe CONTAINS the following attributes:
 title: Recipe Title
@@ -221,6 +222,26 @@ Recipe.search = function(searchTerm){
             reject()
         }
     })
+}
+
+Recipe.countRecipesByAuthor = function(id){
+    return new Promise(async (resolve, reject) =>{
+        let recipeCount = await recipesCollection.countDocuments({author: id})
+        resolve(recipeCount)
+    })
+}
+
+Recipe.getFeed = async function(id){
+    // create an array of the user ids that the current user follows
+    let followedUsers = await followsCollection.find({authorId: new ObjectId(id)}).toArray()
+    followedUsers = followedUsers.map(function(followDoc){
+        return followDoc.followedId
+    })
+    // look for recipes where the author is in the above array of followed users
+    return Recipe.reusablePoseQuery([
+        {$match: {author: {$in: followedUsers}}},
+        {$sort: {createdDate: -1}}
+    ])
 }
 
 module.exports = Recipe

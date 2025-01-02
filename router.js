@@ -19,7 +19,8 @@ router.post("/logout", userController.logout);
 
 // PROFILE RELATED ROUTES
 router.get("/profile/:username", userController.ifUserExists, userController.sharedProfileData, userController.profileRecipesScreen)
-
+router.get("/profile/:username/followers", userController.ifUserExists, userController.sharedProfileData, userController.profileFollowersScreen)
+router.get("/profile/:username/following", userController.ifUserExists, userController.sharedProfileData, userController.profileFollowingScreen)
 
 
 
@@ -40,6 +41,6 @@ router.post("/search", recipeController.search)
 
 // FOLLOW RELATED ROUTES
 router.post("/addFollow/:username", userController.mustBeLoggedIn, followController.addFollow)
-router.post("/removeFollow/:username", userController.mustBeLoggedIn, followController.addFollow)
+router.post("/removeFollow/:username", userController.mustBeLoggedIn, followController.removeFollow)
 
 module.exports = router;

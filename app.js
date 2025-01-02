@@ -4,6 +4,8 @@ const session = require("express-session");
 const MongoStore = require("connect-mongo");
 const flash = require("connect-flash")
 const markdown = require("marked")
+const sanitizeHTML = require("sanitize-html")
+
 
 
 const app = express();
@@ -50,4 +52,26 @@ app.set("view engine", "ejs");
 
 app.use("/", router);
 
-module.exports = app;
+const server = require("http").createServer(app)
+const io = require("socket.io")(server)
+
+io.use(function (socket, next) {
+  sessionOptions(socket.request, socket.request.res || {}, next)
+})
+
+io.on("connection", function(socket){
+  if(socket.request.session.user){
+    let user = socket.request.session.user
+
+    // add "avatar: user.avatar" when we integrate user profile pictures
+    socket.emit("welcome", {username: user.username})
+
+    socket.on('chatMessageFromBrowser', function(data){
+      // add "avatar: user.avatar" when we integrate user profile pictures
+      socket.broadcast.emit("chatMessageFromServer", {message: sanitizeHTML(data.message, {allowedTags: [], allowedAttributes: {}}), username: user.username})
+    })
+  }
+
+})
+
+module.exports = server;

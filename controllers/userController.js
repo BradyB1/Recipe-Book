@@ -3,12 +3,26 @@ const Recipe = require("../models/Recipe");
 const Follow = require('../models/Follow')
 
 exports.sharedProfileData = async function(req, res, next){
+  let isVisitorsProfile = false
   let isFollowing = false
   if(req.session.user){
+    isVisitorsProfile = req.profileUser._id.equals(req.session.user._id)
     isFollowing = await Follow.isVisitorFollowing(req.profileUser._id, req.visitorId)
   }
 
+  req.isVisitorsProfile = isVisitorsProfile
   req.isFollowing = isFollowing
+  // retrieve recipes, follower, and following counts
+  let recipeCountPromise = Recipe.countRecipesByAuthor(req.profileUser._id)
+  let followerCountPromise = Follow.countFollowersById(req.profileUser._id)
+  let followingCountPromise = Follow.countFollowingById(req.profileUser._id)
+
+  let [recipeCount, followerCount, followingCount] = await Promise.all([recipeCountPromise, followerCountPromise, followingCountPromise])
+  
+  req.recipeCount =recipeCount
+  req.followerCount = followerCount
+  req.followingCount = followingCount
+  
   next()
 }
 
@@ -72,9 +86,11 @@ exports.register = function (req, res) {
   })
 };
 
-exports.home = function (req, res) {
+exports.home = async function (req, res) {
   if (req.session.user) {
-    res.render("home-dashboard");
+    // fetch feed of recipes for current user
+    let recipes = await Recipe.getFeed(req.session.user._id)
+    res.render("home-dashboard", {recipes: recipes});
   } else {
     res.render("guest-home", {regErrors: req.flash('regErrors')});
   }
@@ -95,9 +111,12 @@ exports.profileRecipesScreen = function(req, res){
   // ask our posts model for posts by certain id
   Recipe.findByAuthorId(req.profileUser._id).then(function(recipes){
     res.render("profile", {
+      currentPage: "recipes",
       recipes: recipes,
       profileUsername: req.profileUser.username,
-      isFollowing: req.isFollowing
+      isFollowing: req.isFollowing,
+      isVisitorsProfile: req.isVisitorsProfile,
+      counts: {recipeCount: req.recipeCount, followerCount: req.followerCount, followingCount: req.followingCount}
     })
   }).catch(function(){
     res.render("404")
@@ -105,3 +124,37 @@ exports.profileRecipesScreen = function(req, res){
   
 }
 
+exports.profileFollowersScreen = async function(req, res){
+  try{
+    let followers = await Follow.getFollowersById(req.profileUser._id)
+    res.render("profile-followers", {
+      currentPage: "followers",
+      followers: followers,
+      profileUsername: req.profileUser.username,
+      isFollowing: req.isFollowing,
+      isVisitorsProfile: req.isVisitorsProfile,
+      counts: {recipeCount: req.recipeCount, followerCount: req.followerCount, followingCount: req.followingCount}
+
+    })
+  }catch(e){
+    res.render("404")
+  }
+}
+
+
+exports.profileFollowingScreen = async function(req, res){
+  try{
+    let following = await Follow.getFollowingById(req.profileUser._id)
+    res.render("profile-following", {
+      currentPage: "following",
+      following: following,
+      profileUsername: req.profileUser.username,
+      isFollowing: req.isFollowing,
+      isVisitorsProfile: req.isVisitorsProfile,
+      counts: {recipeCount: req.recipeCount, followerCount: req.followerCount, followingCount: req.followingCount}
+
+    })
+  }catch(e){
+    res.render("404")
+  }
+}
