@@ -1,6 +1,32 @@
 const User = require("../models/Users");
 const Recipe = require("../models/Recipe");
 const Follow = require('../models/Follow')
+const jwt = require('jsonwebtoken')
+
+exports.apiGetRecipesByUsername = async function(req , res){
+  try{
+    let authorDoc = await User.findByUsername(req.params.username)
+    let recipes = await Recipe.findByAuthorId(authorDoc._id)
+    res.json(recipes)
+  }catch{
+    res.json("Sorry, invalid user requested.")
+  }
+}
+
+
+exports.doesUsernameExist = function(req, res){
+  User.findByUsername(req.body.username).then(function(){
+    res.json(true)
+  }).catch(function(){
+    res.json(false)
+  })
+}
+
+
+exports.doesEmailExist = async function(req, res) {
+  let emailBool = await User.doesEmailExist(req.body.email)
+  res.json(emailBool)
+}
 
 exports.sharedProfileData = async function(req, res, next){
   let isVisitorsProfile = false
@@ -39,6 +65,15 @@ exports.mustBeLoggedIn = function(req, res, next){
   }
 }
 
+exports.apiMustBeLoggedIn = function(req, res, next){
+  try{
+    req.apiUser = jwt.verify(req.body.token, process.env.JWTSECRET)
+    next()
+  }catch{
+    res.json("Sorry, you must provide a valid token.")
+  }
+}
+
 
 exports.login = function (req, res) {
   let user = new User(req.body);
@@ -46,7 +81,6 @@ exports.login = function (req, res) {
     .login()
     .then(function (result) {
       req.session.user = { favColor: "blue", username: user.data.username, _id: user.data._id };
-      console.log(`User.data.id: ${user.data._id}`)
       req.session.save(function(){
         res.redirect("/")
       })
@@ -60,6 +94,19 @@ exports.login = function (req, res) {
       
     });
 };
+
+
+exports.apiLogin = function(req, res) {
+  let user = new User(req.body)
+  user.login().then(function(result) {
+    res.json(jwt.sign({_id: user.data._id}, process.env.JWTSECRET, {expiresIn: '7d'}))
+  }).catch(function(error) {
+    res.json("Sorry, your values are not correct.")
+  })
+}
+
+
+
 
 exports.logout = function (req, res) {
   req.session.destroy(function(){
@@ -86,6 +133,7 @@ exports.register = function (req, res) {
   })
 };
 
+
 exports.home = async function (req, res) {
   if (req.session.user) {
     // fetch feed of recipes for current user
@@ -107,10 +155,12 @@ exports.ifUserExists = function(req, res, next){
   })
 }
 
+
 exports.profileRecipesScreen = function(req, res){
   // ask our posts model for posts by certain id
   Recipe.findByAuthorId(req.profileUser._id).then(function(recipes){
     res.render("profile", {
+      title: `Profile for ${req.profileUser.username}`,
       currentPage: "recipes",
       recipes: recipes,
       profileUsername: req.profileUser.username,
@@ -123,6 +173,7 @@ exports.profileRecipesScreen = function(req, res){
   })
   
 }
+
 
 exports.profileFollowersScreen = async function(req, res){
   try{
@@ -158,3 +209,4 @@ exports.profileFollowingScreen = async function(req, res){
     res.render("404")
   }
 }
+

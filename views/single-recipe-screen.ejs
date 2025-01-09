@@ -7,6 +7,7 @@
       <span class="pt-2">
         <a href="#" class="text-primary mr-2" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fas fa-edit"></i></a>
         <form class="delete-post-form d-inline" action="#" method="POST">
+          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
           <button class="delete-post-button text-danger" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fas fa-trash"></i></button>
         </form>
       </span>
@@ -22,6 +23,7 @@
           <a href="/recipe/<%= recipe._id %>/edit"><img src="/assets/edit.svg" alt="edit-post" class= "mx-2" ></a>
           <form action="/recipe/<%= recipe._id %>/delete" method="POST">
           <!-- <a href=""><img src="/assets/trash-can.svg" alt="delete-post" ></a> -->
+          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
           <button class="delete-post-button text-danger" data-toggle="tooltip" data-placement="top" title="Delete"><a href=""><img src="/assets/trash-can.svg" alt="delete-post" ></a></button>
 
         </form>
@@ -38,13 +40,13 @@
       
       <div class="indiv-recipe-ingredients">
         <h4><strong>Ingredients:</strong></h4>
-        <p><%= recipe.ingredients %></p>
+        <p><%- filterUserHTML(recipe.ingredients) %></p>
         
       </div>
 
       <div class="indiv-recipe-ingredients">
         <h4><strong>Steps:</strong></h4>
-        <p><%= recipe.steps %></p>
+        <p><%- filterUserHTML(recipe.steps) %></p>
       </div>
       
       

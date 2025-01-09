@@ -3,12 +3,14 @@
     <% if(user && !isVisitorsProfile) { 
         if(isFollowing){ %> 
           <form class="ml-2 d-inline" action="/removeFollow/<%= profileUsername %>" method="POST">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
             <button class="btn btn-danger btn-sm">Stop Following <svg class="fas fa-user-times" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-x-fill" viewBox="0 0 16 16">
               <path fill-rule="evenodd" d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6m6.146-2.854a.5.5 0 0 1 .708 0L14 6.293l1.146-1.147a.5.5 0 0 1 .708.708L14.707 7l1.147 1.146a.5.5 0 0 1-.708.708L14 7.707l-1.146 1.147a.5.5 0 0 1-.708-.708L13.293 7l-1.147-1.146a.5.5 0 0 1 0-.708"/>
             </svg></button>
           </form>
         <% }else{ %>
           <form class="ml-2 d-inline" action="/addFollow/<%= profileUsername %>" method="POST">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
             <button class="btn btn-primary btn-sm">Follow <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-person-fill-add position-relative " viewBox="0 0 16 16">
               <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0m-2-6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
               <path d="M2 13c0 1 1 1 1 1h5.256A4.5 4.5 0 0 1 8 12.5a4.5 4.5 0 0 1 1.544-3.393Q8.844 9.002 8 9c-5 0-6 3-6 4"/>

@@ -21,33 +21,27 @@ exports.create = function(req, res){
   })
 }
 
+exports.apiCreate = function(req, res){
+  let recipe = new Recipe(req.body, req.apiUser._id)
+  recipe.create().then(function(newId){
+    res.json("congrats")
+    console.log("catch then")
+  }).catch(function(errors){
+    console.log("catch hit")
+    res.json(errors)
+  })
+}
+
 
 exports.viewSingle = async function(req, res){
   try{
     let recipe = await Recipe.findSingleById(req.params.id, req.visitorId)
-    res.render('single-recipe-screen', {recipe: recipe})
+    res.render('single-recipe-screen', {recipe: recipe, title: recipe.title})
   } catch{
     res.render("404")
   }
 
 }
-
-// exports.viewEditScreen = async function(req, res){
-//   try{
-//     let recipe = await Recipe.findSingleById(req.params.id)
-//     if (recipe.authorId == req.visitorId){
-//       res.render("edit-recipe", {recipe:recipe})  
-
-//     }else{
-//       res.flash("errors", "You do not have permission to perform that action")
-//       req.session.save(()=> res.redirect('/'))
-
-      
-//     }
-//   }catch{
-//     res.render("404")
-//   }
-// }
 
 exports.viewEditScreen = async function(req, res){
   try{
@@ -111,7 +105,14 @@ exports.delete = function(req, res){
   })
 }
 
-
+exports.apiDelete = function(req, res){
+  Recipe.delete(req.params.id, req.apiUser._id).then(()=>{
+    res.json("Success")
+  }).catch(()=>{
+    res.json("You do not have permissions to delete this.")
+  })
+}
+// 6780180c47a310f25b542a53
 exports.search = function(req, res){
   Recipe.search(req.body.searchTerm).then( recipes =>{
     res.json(recipes)

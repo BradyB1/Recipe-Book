@@ -47,9 +47,9 @@ Recipe.prototype.cleanUp = function() {
     // get rid of any bogus properties
     this.data = {
         title: sanitizeHTML(this.data.title.trim(), {allowedTags: [], allowedAttributes: {}}),
-        description: sanitizeHTML(this.data.description.trim(), {allowedTags: [], allowedAttributes: {}}),
-        ingredients: sanitizeHTML(this.data.ingredients, {allowedTags: [], allowedAttributes: {}} ),
-        steps: sanitizeHTML(this.data.steps, {allowedTags: [], allowedAttributes: {}} ),
+        description: sanitizeHTML(this.data.description.trim(), {allowedTags: ["br"], allowedAttributes: {}}),
+        ingredients: sanitizeHTML(this.data.ingredients, {allowedTags: ['br'], allowedAttributes: {}} ),
+        steps: sanitizeHTML(this.data.steps, {allowedTags: ["br"], allowedAttributes: {}} ),
         cook_time: sanitizeHTML(this.data.cook_time, {allowedTags: [], allowedAttributes: {}} ),
         createdDate: new Date(),
         author: new ObjectId(this.userid)
