@@ -160,7 +160,7 @@ exports.profileRecipesScreen = function(req, res){
   // ask our posts model for posts by certain id
   Recipe.findByAuthorId(req.profileUser._id).then(function(recipes){
     res.render("profile", {
-      title: `Profile for ${req.profileUser.username}`,
+      title: `${req.profileUser.username.charAt(0).toUpperCase() + req.profileUser.username.slice(1)}'s Profile`,
       currentPage: "recipes",
       recipes: recipes,
       profileUsername: req.profileUser.username,
