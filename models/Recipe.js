@@ -50,9 +50,10 @@ Recipe.prototype.cleanUp = function() {
     // get rid of any bogus properties
     this.data = {
         title: sanitizeHTML(this.data.title.trim(), {allowedTags: [], allowedAttributes: {}}),
-        description: sanitizeHTML(this.data.description.trim(), {allowedTags: ["br"], allowedAttributes: {}}),
-        ingredients: sanitizeHTML(this.data.ingredients, {allowedTags: ['br'], allowedAttributes: {}} ),
-        steps: sanitizeHTML(this.data.steps, {allowedTags: ["br"], allowedAttributes: {}} ),
+        description: sanitizeHTML(this.data.description.replace(/\r?\n/g, '<br>').trim(), {allowedTags: ["br"], allowedAttributes: {}}),
+        // ingredients: sanitizeHTML(this.data.ingredients, {allowedTags: ['br'], allowedAttributes: {}} ),
+        ingredients: sanitizeHTML(this.data.ingredients.replace(/\r?\n/g, '<br>'), {allowedTags: ['br'], allowedAttributes: {}}),
+        steps: sanitizeHTML(this.data.steps.replace(/\r?\n/g, '<br>'), {allowedTags: ["br"], allowedAttributes: {}} ),
         cook_time: sanitizeHTML(this.data.cook_time, {allowedTags: [], allowedAttributes: {}} ),
         url: sanitizeHTML(this.data.url, {allowedTags: [], allowedAttributes: {}}),
         createdDate: new Date(),
