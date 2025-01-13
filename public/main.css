@@ -378,3 +378,25 @@ textarea.tall-textarea {
   outline: none;
   font-size: .75rem;
 }
+
+
+.card-text {
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* Limit to 2 lines */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+.card-subtitle {
+  white-space: nowrap;         /* Prevent the text from wrapping */
+  overflow: hidden;            /* Hide any overflowing text */
+  text-overflow: ellipsis;     /* Add an ellipsis (...) when the text overflows */
+}
+
+.card-title{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
