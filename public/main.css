@@ -378,3 +378,7 @@ textarea.tall-textarea {
   outline: none;
   font-size: .75rem;
 }
+
+.recipe-url{
+  font-size:14px;
+}
