@@ -54,7 +54,7 @@ Recipe.prototype.cleanUp = function() {
         ingredients: sanitizeHTML(this.data.ingredients, {allowedTags: ['br'], allowedAttributes: {}} ),
         steps: sanitizeHTML(this.data.steps, {allowedTags: ["br"], allowedAttributes: {}} ),
         cook_time: sanitizeHTML(this.data.cook_time, {allowedTags: [], allowedAttributes: {}} ),
-        url: this.data.url,
+        url: sanitizeHTML(this.data.url, {allowedTags: [], allowedAttributes: {}}),
         createdDate: new Date(),
         author: new ObjectId(this.userid)
     };
