@@ -21,7 +21,6 @@ let Recipe = function(data, userid, requestedPostId){
 }
 
 Recipe.prototype.cleanUp = function() {
-    console.log("Incoming Data:", this.data)
     // Validates that the attributes are all string values
     if(typeof(this.data.title) != "string"){
         this.data.title = ""
@@ -44,6 +43,10 @@ Recipe.prototype.cleanUp = function() {
         this.data.cook_time = ""
     }
 
+    if(typeof(this.data.url) != "string"){
+        this.data.url = ""
+    }
+
     // get rid of any bogus properties
     this.data = {
         title: sanitizeHTML(this.data.title.trim(), {allowedTags: [], allowedAttributes: {}}),
@@ -51,6 +54,7 @@ Recipe.prototype.cleanUp = function() {
         ingredients: sanitizeHTML(this.data.ingredients, {allowedTags: ['br'], allowedAttributes: {}} ),
         steps: sanitizeHTML(this.data.steps, {allowedTags: ["br"], allowedAttributes: {}} ),
         cook_time: sanitizeHTML(this.data.cook_time, {allowedTags: [], allowedAttributes: {}} ),
+        url: this.data.url,
         createdDate: new Date(),
         author: new ObjectId(this.userid)
     };
@@ -123,7 +127,7 @@ Recipe.prototype.actuallyUpdate = function(){
         this.cleanUp()
         this.validate()
         if(!this.errors.length){
-            await recipesCollection.findOneAndUpdate({_id:new ObjectId(this.requestedPostId)}, {$set:{ title: this.data.title, description: this.data.description, ingredients: this.data.ingredients, steps: this.data.steps, cook_time: this.data.cook_time}})
+            await recipesCollection.findOneAndUpdate({_id:new ObjectId(this.requestedPostId)}, {$set:{ title: this.data.title, description: this.data.description, ingredients: this.data.ingredients, steps: this.data.steps, cook_time: this.data.cook_time, url: this.data.url}})
             resolve("success")
         }else{
             resolve("failure")
@@ -142,6 +146,7 @@ Recipe.reusablePoseQuery = function (uniqueOperations, visitorId, finalOperation
                 steps: 1,
                 cook_time: 1,
                 createdDate: 1,
+                url: 1,
                 authorId: "$author",
                 author: {$arrayElemAt: ['$authorDocument', 0]}
             }}
