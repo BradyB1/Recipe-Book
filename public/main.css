@@ -7,12 +7,26 @@ body, .tooltip
   font-family: 'Open Sans', sans-serif;
 }
 
+
 .header-bar {
   background-color: #292929;
 }
 
 .container--narrow {
   max-width: 732px;
+  /* margin-top: 20px; */
+  /* padding-top: 20px; */
+}
+
+@media (max-width: 768px) {
+  
+
+  .container--narrow{
+    margin-top: 20px;
+  }
+  .home-dashboard {
+    margin-top: 40px;
+  }
 }
 
 .header-search-icon {
