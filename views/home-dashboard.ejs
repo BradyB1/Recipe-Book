@@ -2,6 +2,28 @@
 
 <div class="container py-md-5 container--narrow">
   <%- include("includes/flash") %>
+=======
+    <div class="container py-md-5 home-dashboard container--narrow">
+      <%- include("includes/flash") %>
+
+      <% if(recipes.length){ %>
+        <h2 class="text-center mb-4">The Latest From Those You Follow </h2>
+        <div class="list-group">
+          <% recipes.forEach(function(recipe){ %>
+              <a href="/recipe/<%= recipe._id %>" class="list-group-item list-group-item-action">
+                  <!-- <img class="avatar-tiny" src="https://gravatar.com/avatar/b9408a09298632b5151200f3449434ef?s=128"> -->
+                  <strong><%= recipe.title %></strong><span class="text-muted small"> by <%= recipe.author.username %> on <%= recipe.createdDate.getMonth()+1 %>/<%= recipe.createdDate.getDate() %>/<%= recipe.createdDate.getFullYear() %></span>
+
+                </a>
+          <% }) %>
+      </div>
+      <% }else { %>
+        <div class="text-center">
+          <h2>Hello <strong><%= user.username.charAt(0).toUpperCase() + user.username.slice(1) %></strong>, you have no recipes!</h2>
+          <p class="lead text-muted">Your feed displays the latest Recipes from you or the people you follow. If you don&rsquo;t have any friends to follow that&rsquo;s okay; you can use the &ldquo;Search&rdquo; feature in the top menu bar to find recipes created by other people and then follow them for more recipes!</p>
+        </div>  
+      <% } %>
+
 
   <% if(recipes.length){ %>
     <h2 class="text-center mb-4">The Latest From Those You Follow </h2>

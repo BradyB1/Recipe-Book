@@ -15,7 +15,9 @@
       
     <p class="text-muted small mb-1">
       Posted by <a href="/profile/<%= recipe.author.username %>"><%= recipe.author.username %></a> on <%= recipe.createdDate.getMonth()+1 %>/<%= recipe.createdDate.getDate() %>/<%= recipe.createdDate.getFullYear() %></p>
-      <p class="text-muted small mt-0 mb-4">Cook time: <%= recipe.cook_time %></p>
+      <p class="text-muted small mt-0 mb-2">Cook time: <%= recipe.cook_time %></p>
+      
+
 
       <div class="svg-container d-flex justify-content-end w-100">
         
@@ -49,6 +51,7 @@
         <p><%- filterUserHTML(recipe.steps) %></p>
       </div>
       
+      <p class="text-muted small mt-0 mb-0 recipe-url">External URL: <a href="<%= recipe.url %>" target="_blank" rel="noopener noreferrer"><%= recipe.url %></a></p>
       
       
       

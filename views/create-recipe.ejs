@@ -6,26 +6,26 @@
     <form class="create-form" action="/create-recipe" method="POST">
       <!-- Recipe Title -->
       <div class="form-group">
-        <label for="recipe-title" class="text-muted mb-1"><small>Recipe Title</small></label>
-        <input required name="title" id="recipe-title" class="form-control form-control-lg" type="text" placeholder="Enter recipe title" autocomplete="off">
+        <label for="recipe-title" class="text-muted mb-0"><small>Recipe Title</small></label>
+        <input required name="title" id="recipe-title" class="form-control form-control-lg mb-1" type="text" placeholder="Enter recipe title" autocomplete="off">
       </div>
   
       <!-- Recipe Description -->
       <div class="form-group">
-        <label for="recipe-description" class="text-muted mb-1"><small>Recipe Description</small></label>
-        <textarea required name="description" id="recipe-description" class="form-control tall-textarea" rows="4" placeholder="Provide a short description of the recipe"></textarea>
+        <label for="recipe-description" class="text-muted mb-0"><small>Recipe Description</small></label>
+        <textarea required name="description" id="recipe-description" class="form-control tall-textarea mb-1" rows="4" placeholder="Provide a short description of the recipe"></textarea>
       </div>
   
       <!-- Ingredients -->
       <div class="form-group">
-        <label for="recipe-ingredients" class="text-muted mb-1"><small>Ingredients</small></label>
-        <textarea required name="ingredients" id="recipe-ingredients" class="form-control tall-textarea" rows="5" placeholder="List all ingredients, one per line"></textarea>
+        <label for="recipe-ingredients" class="text-muted mb-0"><small>Ingredients</small></label>
+        <textarea required name="ingredients" id="recipe-ingredients" class="form-control tall-textarea mb-1" rows="5" placeholder="List all ingredients, one per line"></textarea>
       </div>
   
       <!-- Steps -->
       <div class="form-group">
-        <label for="recipe-steps" class="text-muted mb-1"><small>Steps</small></label>
-        <textarea required name="steps" id="recipe-steps" class="form-control tall-textarea" rows="6" placeholder="Describe the steps to prepare the recipe"></textarea>
+        <label for="recipe-steps" class="text-muted mb-0"><small>Steps</small></label>
+        <textarea required name="steps" id="recipe-steps" class="form-control tall-textarea mb-1" rows="6" placeholder="Describe the steps to prepare the recipe"></textarea>
       </div>
   
       <!-- Prep Time -->
@@ -36,10 +36,15 @@
   
       <!-- Cook Time -->
       <div class="form-group">
-        <label for="cook-time" class="text-muted mb-1"><small>Cooking Time (minutes)</small></label>
-        <input required name="cook_time" id="cook-time" class="form-control"  min="0" placeholder="e.g., 30">
+        <label for="cook-time" class="text-muted mb-0"><small>Cooking Time (minutes)</small></label>
+        <input required name="cook_time" id="cook-time" class="form-control mb-1"  min="0" placeholder="e.g., 30">
       </div>
   
+      <!-- Optional Recipe Source URL -->
+      <div class="form-group">
+        <label for="recipe-url" class="text-muted mb-0"><small>URL</small></label>
+        <input name="url" id="recipe-url" class="form-control"  min="0" placeholder="e.g., https://recipesource.com">
+      </div>
       <!-- Image Upload
       <div class="form-group">
         <label for="recipe-image" class="text-muted mb-1"><small>Upload Image</small></label>

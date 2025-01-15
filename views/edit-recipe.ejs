@@ -41,6 +41,12 @@
         <input required name="cook_time" value="<%= recipe.cook_time %>" id="cook-time" class="form-control"  min="0" placeholder="e.g., 30">
       </div>
   
+      <!-- Recipe URL -->
+      <div class="form-group">
+        <label for="recipe-url" class="text-muted mb-0"><small>URL</small></label>
+        <input name="url" id="recipe-url" value="<%= recipe.url %>" class="form-control"  min="0" placeholder="e.g., https://recipesource.com">
+      </div>
+
       <!-- Image Upload
       <div class="form-group">
         <label for="recipe-image" class="text-muted mb-1"><small>Upload Image</small></label>

@@ -7,12 +7,22 @@ body, .tooltip
   font-family: 'Open Sans', sans-serif;
 }
 
+
 .header-bar {
   background-color: #292929;
 }
 
 .container--narrow {
   max-width: 732px;
+}
+
+@media (max-width: 768px) {
+  .container--narrow{
+    margin-top: 20px;
+  }
+  .home-dashboard {
+    margin-top: 40px;
+  }
 }
 
 .header-search-icon {
@@ -380,6 +390,7 @@ textarea.tall-textarea {
 }
 
 
+
 .card-text {
   display: -webkit-box;
   -webkit-line-clamp: 2; /* Limit to 2 lines */
@@ -400,3 +411,7 @@ textarea.tall-textarea {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+.recipe-url{
+  font-size:14px;
+}
+
