@@ -1,5 +1,8 @@
-  <%- include("includes/header") %> 
+<%- include("includes/header") %> 
 
+<div class="container py-md-5 container--narrow">
+  <%- include("includes/flash") %>
+=======
     <div class="container py-md-5 home-dashboard container--narrow">
       <%- include("includes/flash") %>
 
@@ -21,9 +24,30 @@
         </div>  
       <% } %>
 
+
+  <% if(recipes.length){ %>
+    <h2 class="text-center mb-4">The Latest From Those You Follow </h2>
+    <div class="row g-3" >
+        <% recipes.forEach(function(recipe){ %>
+            <div class="col-lg-4 col-md-6 col-12 mb-4">
+                <div class="card" style="max-width: 100%;">
+                    <div class="card-body">
+                        <h5 class="card-title"><strong><%= recipe.title %></strong></h5>
+                        <h6 class="card-subtitle mb-2 text-body-secondary"><i>Cook Time: <%= recipe.cook_time %></i></h6>
+                        <p class="card-text"><%= recipe.description %></p>
+                        <a href="/recipe/<%= recipe._id %>" class="card-link"><button type="button" class="btn btn-secondary">View Recipe</button></a>
+                    </div>
+                </div>
+            </div>
+        <% }) %>
     </div>
+  <% }else { %>
+    <div class="text-center">
+      <h2>Hello <strong><%= user.username %></strong>, you have no recipes!</h2>
+      <p class="lead text-muted">Your feed displays the latest Recipes from you or the people you follow. If you don&rsquo;t have any friends to follow that’s okay; you can use the &ldquo;Search&rdquo; feature in the top menu bar to find recipes created by other people and then follow them for more recipes!</p>
+    </div>  
+  <% } %>
+
+</div>
 
 <%- include("includes/footer") %>
-
-
- 
