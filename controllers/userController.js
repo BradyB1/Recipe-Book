@@ -210,3 +210,82 @@ exports.profileFollowingScreen = async function(req, res){
   }
 }
 
+exports.getAccountDetails = async function (req, res) {
+  try {
+    // Ensure the username is provided in the session or request body
+    if (!req.session.user || !req.session.user.username) {
+      req.flash("errors", "You must be logged in to view account details.");
+      return req.session.save(() => res.redirect("/"));
+    }
+
+    // Fetch the user details from the database using the session username
+    const user = await User.findByUsername(req.session.user.username);
+
+    if (user) {
+      console.log("User found:", user);
+      res.render("account-details", { user: user, username: req.session.user.username, email: req.session.user.email }); // Pass the user data to the view
+    } else {
+      req.flash("errors", "User not found.");
+      req.session.save(() => res.redirect("/"));
+    }
+  } catch (error) {
+    console.error("Error in getAccountDetails:", error);
+    req.flash("errors", "An unexpected error occurred.");
+    req.session.save(() => res.redirect("/"));
+  }
+};
+
+
+exports.viewEditAccountScreen = async function (req, res) {
+  try {
+    if (!req.session.user) {
+      req.flash("errors", "You must be logged in to edit account details.");
+      return req.session.save(() => res.redirect("/"));
+    }
+
+    let user = await User.findSingleById(req.session.user._id);
+    if (user) {
+      res.render("account-details", { user: user });
+    } else {
+      req.flash("errors", "User not found.");
+      req.session.save(() => res.redirect("/"));
+    }
+  } catch (error) {
+    console.error("Error in viewEditAccountScreen:", error);
+    res.render("404");
+  }
+};
+
+exports.editAccount = function (req, res) {
+  if (!req.session.user) {
+    req.flash("errors", "You must be logged in to edit account details.");
+    return req.session.save(() => res.redirect("/"));
+  }
+
+  let user = new User({ ...req.body, _id: req.session.user._id });
+  user
+    .update()
+    .then((status) => {
+      if (status === "success") {
+        req.flash("success", "Account details successfully updated.");
+        req.session.user.username = user.data.username; // Update session with new username
+        req.session.user.email = user.data.email; // Update session with new email
+        req.session.save(() => res.redirect("/account-details"));
+      } else {
+        user.errors.forEach((error) => req.flash("errors", error));
+        req.session.save(() => res.redirect("/account-details"));
+      }
+    })
+    .catch((err) => {
+      console.error("Error updating account details:", err);
+      req.flash("errors", "An unexpected error occurred.");
+      req.session.save(() => res.redirect("/account-details"));
+    });
+};
+
+
+// Need a findSingleUserById func to find a single user by ID
+  // Need to have a reusablePostQuery to get information of user 
+    // Update function to check if the user is the active user
+      // actuallyUpdate func to perform the findOneAndUpdate method
+         // need a controller func to edit and display success or failure flash messages 

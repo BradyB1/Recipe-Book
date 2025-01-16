@@ -17,6 +17,14 @@ router.post("/register", userController.register);
 router.post("/logout", userController.logout);
 router.post("/doesUsernameExist", userController.doesUsernameExist)
 router.post("/doesEmailExist", userController.doesEmailExist)
+// Route for viewing account details
+router.get("/account-details", userController.mustBeLoggedIn, userController.getAccountDetails);
+
+// Route for updating account details
+router.post("/user/:id/edit", userController.mustBeLoggedIn, userController.editAccount);
+
+
+
 
 // PROFILE RELATED ROUTES
 router.get("/profile/:username", userController.ifUserExists, userController.sharedProfileData, userController.profileRecipesScreen)
@@ -24,7 +32,10 @@ router.get("/profile/:username/followers", userController.ifUserExists, userCont
 router.get("/profile/:username/following", userController.ifUserExists, userController.sharedProfileData, userController.profileFollowingScreen)
 
 
-
+// router.get("/test-account-details", (req, res) => {
+//     res.render("account-details");
+//   });
+  
 // RECIPE RELATED ROUTES
     // All recipes under user account
 router.get("/recipes", recipeController.viewRecipeScreen);
