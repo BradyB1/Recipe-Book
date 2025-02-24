@@ -57,20 +57,41 @@ User.prototype.validate = function(){
     }
   
     // Only if username is valid, check to see if its already taken
-    if(this.data.username.length > 2 && this.data.username.length < 31 && validator.isAlphanumeric(this.data.username)){
-      let usernameExists = await usersCollection.findOne({username: this.data.username});
-      if(usernameExists){
-        this.errors.push("That username is already taken.")
-      }
-    }
+    // if(this.data.username.length > 2 && this.data.username.length < 31 && validator.isAlphanumeric(this.data.username)){
+    //   let usernameExists = await usersCollection.findOne({username: this.data.username});
+    //   if(usernameExists){
+    //     this.errors.push("That username is already taken.")
+    //   }
+    // }
   
-      // Only if username is valid, check to see if its already taken
-    if(validator.isEmail(this.data.email)){
-      let emailExists = await usersCollection.findOne({email: this.data.email});
-      if(emailExists){
-        this.errors.push("That email is already in use.")
+    //   // Only if username is valid, check to see if its already taken
+    // if(validator.isEmail(this.data.email)){
+    //   let emailExists = await usersCollection.findOne({email: this.data.email});
+    //   if(emailExists){
+    //     this.errors.push("That email is already in use.")
+    //   }
+    // }
+
+    if (this.data.username.length > 2 && this.data.username.length < 31 && validator.isAlphanumeric(this.data.username)) {
+      let usernameExists = await usersCollection.findOne({
+        username: this.data.username,
+        _id: { $ne: new ObjectId(this.data._id) }, // Exclude current user
+      });
+      if (usernameExists) {
+        this.errors.push("That username is already taken.");
       }
     }
+    
+    if (validator.isEmail(this.data.email)) {
+      let emailExists = await usersCollection.findOne({
+        email: this.data.email,
+        _id: { $ne: new ObjectId(this.data._id) }, // Exclude current user
+      });
+      if (emailExists) {
+        this.errors.push("That email is already in use.");
+      }
+    }
+    
     resolve()
   
   })
@@ -152,5 +173,51 @@ User.doesEmailExist = function(email){
     }
   })
 }
+
+
+// Need a findSingleUserById func to find a single user by ID
+  // Need to have a reusablePostQuery to get information of user 
+    // Update function to check if the user is the active user
+      // actuallyUpdate func to perform the findOneAndUpdate method
+
+
+  User.prototype.update = function () {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const user = await usersCollection.findOne({ _id: new ObjectId(this.data._id) });
+        if (user) {
+          let status = await this.actuallyUpdate();
+          resolve(status);
+        } else {
+          reject("User not found.");
+        }
+      } catch (err) {
+        reject("Unable to update user.");
+      }
+    });
+  };
+  
+  User.prototype.actuallyUpdate = function () {
+    return new Promise(async (resolve, reject) => {
+      this.cleanUp();
+      await this.validate();
+      if (!this.errors.length) {
+        await usersCollection.findOneAndUpdate(
+          { _id: new ObjectId(this.data._id) },
+          {
+            $set: {
+              username: this.data.username,
+              email: this.data.email,
+            },
+          }
+        );
+        resolve("success");
+      } else {
+        resolve("failure");
+      }
+    });
+  };
+
+
 
 module.exports = User;
