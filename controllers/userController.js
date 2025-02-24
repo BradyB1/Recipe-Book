@@ -210,6 +210,11 @@ exports.profileFollowingScreen = async function(req, res){
   }
 }
 
+exports.getLoginScreen = async function (req, res){
+  res.render("login")  
+  
+}
+
 exports.getAccountDetails = async function (req, res) {
   try {
     // Ensure the username is provided in the session or request body

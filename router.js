@@ -9,6 +9,7 @@ const followController = require("./controllers/followController");
 router.get("/", userController.home);
     //Logged in Home Page
 router.get("/home", userController.home);
+router.get("/login", userController.getLoginScreen)
     // sends a post request to login
 router.post("/login", userController.login);
     // sends a post request to register as a user in the Mongodb
