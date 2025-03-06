@@ -227,7 +227,6 @@ exports.getAccountDetails = async function (req, res) {
     const user = await User.findByUsername(req.session.user.username);
 
     if (user) {
-      console.log("User found:", user);
       res.render("account-details", { user: user, username: req.session.user.username, email: req.session.user.email }); // Pass the user data to the view
     } else {
       req.flash("errors", "User not found.");
